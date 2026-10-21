@@ -1,0 +1,1482 @@
+<!--prettier-ignore-->
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-E4MS0GK1F9"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-E4MS0GK1F9");
+    </script>
+    <title>Mata Pelajaran - Pusat Informasi Layanan PTK Kemenag</title>
+
+    <link
+      type="image/x-icon"
+      href="/static/base/images/favicon/favicon.ico"
+      rel="icon"
+    />
+
+    <link href="/static/base/css/app.css" rel="stylesheet" />
+    <link href="/static/base/css/style.min.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-base-200/30 font-sans kurikulum-kbm-view-only">
+    <!-- Top Navbar -->
+    <nav
+      class="navbar border-primary sticky top-0 z-50 justify-between overflow-hidden border-b"
+    >
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img
+          class="h-full w-full object-cover"
+          src="/static/base/images/app/bg_navbar.png"
+          alt="navbar background"
+        />
+      </div>
+
+      <!-- Navbar Content -->
+      <div
+        class="navbar-start relative z-10 w-52 items-center-safe justify-center"
+      >
+        <!-- Mobile Menu Toggle -->
+        <button
+          class="btn btn-text btn-square me-2 sm:hidden"
+          data-overlay="#main-sidebar"
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="main-sidebar"
+        >
+          <span class="icon-[ph--list-bold] size-5"></span>
+        </button>
+
+        <!-- Brand Logo -->
+        <a class="flex items-center gap-3 text-nowrap" href="/dashboard/">
+          <img
+            class="h-12 w-auto"
+            src="/static/base/images/app/logo-emis-gtk-v1-cropped.png"
+            alt="EMIS GTK"
+          />
+        </a>
+      </div>
+
+      <!-- Navbar End -->
+      <div class="navbar-end relative z-10 flex items-center gap-3">
+        <!-- User Dropdown -->
+        <div
+          class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]"
+        >
+          <button
+            class="dropdown-toggle flex items-center gap-3"
+            id="dropdown-user"
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-label="User menu"
+          >
+            <div class="flex flex-col items-end max-sm:hidden">
+              <span class="text-sm font-semibold text-gray-800">
+                Bayu Kartawan
+              </span>
+
+              <span class="text-xs text-gray-600"> MIS NW PENYENGGIR </span>
+
+              <!--prettier-ignore-->
+              <!--
+Role Badge Component
+
+
+Parameters:
+- role_id: Integer role ID (k_group)
+- role_name: String role display name
+-->
+
+              <!-- Admin Madrasah -->
+              <span class="badge badge-primary badge-soft badge-sm">
+                <span class="icon-[ph--graduation-cap-bold] size-3"></span>
+                Admin Madrasah
+              </span>
+            </div>
+            <span class="icon-[ph--caret-down-bold] size-4"></span>
+          </button>
+          <ul
+            class="dropdown-menu dropdown-open:opacity-100 hidden min-w-52"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="dropdown-user"
+          >
+            <li>
+              <a class="dropdown-item" href="/profile/">
+                <span class="icon-[ph--user-bold] size-5"></span>
+                Profil Saya
+              </a>
+            </li>
+            <li class="dropdown-footer gap-2">
+              <a
+                class="btn btn-error btn-soft btn-block"
+                href="#"
+                onclick="
+                  event.preventDefault();
+                  document.getElementById('form-logout').submit();
+                "
+              >
+                <span class="icon-[ph--sign-out-bold] size-4"></span>
+                Keluar
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Logout Form -->
+    <form class="hidden" id="form-logout" action="/logout" method="post">
+      <input
+        type="hidden"
+        name="csrfmiddlewaretoken"
+        value="FwUa4uWZoKkFBxAQiMIjhjpH0XWBbHBl9l9xPrYtKS2f6Ho2FPd7tjsLHrwjVAdL"
+      />
+    </form>
+
+    <!-- Impersonate Banner -->
+
+    <!-- Main Layout -->
+    <!--prettier-ignore-->
+    <div class="relative flex min-h-[calc(100vh-64px)]">
+        <!-- Sidebar -->
+        <!--prettier-ignore-->
+        <aside
+            class="overlay drawer drawer-start overlay-open:translate-x-0 hidden w-72 flex-col bg-linear-to-t from-cyan-600 from-10% to-teal-600 to-50% [--auto-close:sm] sm:fixed sm:z-40 sm:flex sm:translate-x-0 sm:overflow-y-auto sm:shadow-none sm:top-14 sm:h-[calc(100vh-56px)]"
+            id="main-sidebar" role="dialog" tabindex="-1">
+            <div class="drawer-body relative mt-4 flex flex-1 flex-col px-4">
+                <!-- Header TA/Semester -->
+                <div class="card my-4 rounded-sm bg-white/25 text-white shadow">
+                    <div class="card-body p-2">
+                        <!--prettier-ignore-->
+
+                        <p class="text-sm">
+                            Tahun: <b>2025/2026</b>
+                        </p>
+                        <div class="divider before:bg-white/90 after:bg-white/90"></div>
+                        <p class="text-sm">
+                            Semester: <b>2 (Genap)</b>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="divider before:bg-white/90 after:bg-white/90"></div>
+                <!-- Menu Navigation -->
+                <div class="flex-1 overflow-y-auto pt-1">
+                    <ul class="menu menu-sidebar gap-1 p-0 text-xs">
+                        <li>
+                            <!--prettier-ignore-->
+                            <a class="" href="/sitemaps/">
+                                <span class="icon-[ph--map-trifold-bold] size-5"></span>
+                                <span>Peta Situs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!-- prettier-ignore -->
+                            <a class="" href="/dashboard/">
+                                <span class="icon-[ph--house-bold] size-5"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <!--prettier-ignore-->
+
+
+                        <!-- Menu Super Admin -->
+
+
+
+
+                        <!-- Menu Admin Konfigurasi -->
+
+
+
+
+                        <!-- Menu Super PAI (Kanwil) -->
+
+
+
+
+                        <!-- Menu Admin Sekolah -->
+
+
+                        <!-- Madrasah -->
+
+                        <li class="space-y-0.5">
+                            <a class="collapse-toggle collapse-open:bg-white/10 cursor-pointer font-semibold open"
+                                id="sidebar-aks-madrasah" data-collapse="#sidebar-aks-madrasah-collapse" role="button"
+                                tabindex="0" aria-expanded="true" data-testid="sidebar-aks-btn-madrasah">
+                                <span class="grow uppercase">Madrasah</span>
+                                <span
+                                    class="icon-[ph--caret-down-bold] collapse-open:rotate-180 size-3 transition-transform duration-300"></span>
+                            </a>
+                            <ul id="sidebar-aks-madrasah-collapse"
+                                class="collapse w-auto overflow-hidden transition-[height] duration-300 "
+                                aria-labelledby="sidebar-aks-madrasah">
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/instansi/daftar-sm/my/">
+                                        <span class="icon-[ph--buildings-bold] size-5"></span>
+                                        <span>Detail Madrasah</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/instansi/aktivasi-sm/">
+                                        <span class="icon-[ph--shield-check-bold] size-5"></span>
+                                        <span>Keaktifan Kolektif</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="menu-active" href="/pembelajaran/pelajaran/">
+                                        <span class="icon-[ph--books-bold] size-5"></span>
+                                        <span>Mata Pelajaran</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/pembelajaran/jadwal-model/">
+                                        <span class="icon-[ph--gear-bold] size-5"></span>
+                                        <span>Pengaturan Jadwal</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/pembelajaran/rombel/">
+                                        <span class="icon-[ph--users-three-bold] size-5"></span>
+                                        <span>Rombel</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/pembelajaran/plotting-guru-bk/">
+                                        <span class="icon-[ph--chalkboard-teacher-bold] size-5"></span>
+                                        <span>Plotting Guru BK</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/pembelajaran/jadwal/">
+                                        <span class="icon-[ph--calendar-bold] size-5"></span>
+                                        <span>Tambah Jadwal Mengajar</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/pembelajaran/linearitas/">
+                                        <span class="icon-[ph--check-square-bold] size-5"></span>
+                                        <span>Pengecekan Linearitas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Kelola Akun -->
+
+                        <li class="space-y-0.5">
+                            <a class="collapse-toggle collapse-open:bg-white/10 cursor-pointer font-semibold "
+                                id="sidebar-aks-kelola-akun" data-collapse="#sidebar-aks-kelola-akun-collapse"
+                                role="button" tabindex="0" aria-expanded="false"
+                                data-testid="sidebar-aks-btn-kelola-akun">
+                                <span class="grow uppercase">Kelola Akun</span>
+                                <span
+                                    class="icon-[ph--caret-down-bold] collapse-open:rotate-180 size-3 transition-transform duration-300"></span>
+                            </a>
+                            <ul id="sidebar-aks-kelola-akun-collapse"
+                                class="collapse w-auto overflow-hidden transition-[height] duration-300 hidden"
+                                aria-labelledby="sidebar-aks-kelola-akun">
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/akun/manajemen/sekolah/">
+                                        <span class="icon-[ph--user-gear-bold] size-5"></span>
+                                        <span>Manajemen Akun</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/akun/manajemen/sekolah/monitoring-ptk/">
+                                        <span class="icon-[ph--chart-line-bold] size-5"></span>
+                                        <span>Monitoring Akun PTK</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/manajemen-ptk/">
+                                        <span class="icon-[ph--users-bold] size-5"></span>
+                                        <span>Manajemen PTK</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Guru dan Tenaga Kependidikan -->
+
+                        <li class="space-y-0.5">
+                            <a class="collapse-toggle collapse-open:bg-white/10 cursor-pointer font-semibold "
+                                id="sidebar-aks-gtk" data-collapse="#sidebar-aks-gtk-collapse" role="button"
+                                tabindex="0" aria-expanded="false" data-testid="sidebar-aks-btn-gtk">
+                                <span class="grow uppercase">Guru &amp; Tenaga Kependidikan</span>
+                                <span
+                                    class="icon-[ph--caret-down-bold] collapse-open:rotate-180 size-3 transition-transform duration-300"></span>
+                            </a>
+                            <ul id="sidebar-aks-gtk-collapse"
+                                class="collapse w-auto overflow-hidden transition-[height] duration-300 hidden"
+                                aria-labelledby="sidebar-aks-gtk">
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/tugas-tambahan/">
+                                        <span class="icon-[ph--briefcase-bold] size-5"></span>
+                                        <span>Tugas Tambahan</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/presensi/">
+                                        <span class="icon-[ph--clipboard-text-bold] size-5"></span>
+                                        <span>Presensi PTK</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/pengajuan-mutasi/">
+                                        <span class="icon-[ph--arrows-left-right-bold] size-5"></span>
+                                        <span>Pengajuan Mutasi PTK</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/pengajuan-non-satminkal/madrasah/">
+                                        <span class="icon-[ph--mosque-bold] size-5"></span>
+                                        <span>Non-Satminkal Madrasah</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/pengajuan-non-satminkal/sekolah/">
+                                        <span class="icon-[ph--graduation-cap-bold] size-5"></span>
+                                        <span>Non-Satminkal Sekolah</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/ptk/verifikasi-non-satminkal/madrasah/">
+                                        <span class="icon-[ph--tray-bold] size-5"></span>
+                                        <span>Verifikasi Non-Satminkal Madrasah</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Referensi -->
+
+                        <li class="space-y-0.5">
+                            <a class="collapse-toggle collapse-open:bg-white/10 cursor-pointer font-semibold "
+                                id="sidebar-aks-referensi" data-collapse="#sidebar-aks-referensi-collapse" role="button"
+                                tabindex="0" aria-expanded="false" data-testid="sidebar-aks-btn-referensi">
+                                <span class="grow uppercase">Referensi</span>
+                                <span
+                                    class="icon-[ph--caret-down-bold] collapse-open:rotate-180 size-3 transition-transform duration-300"></span>
+                            </a>
+                            <ul id="sidebar-aks-referensi-collapse"
+                                class="collapse w-auto overflow-hidden transition-[height] duration-300 hidden"
+                                aria-labelledby="sidebar-aks-referensi">
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/master/hari-libur-mingguan/">
+                                        <span class="icon-[ph--calendar-x-bold] size-5"></span>
+                                        <span>Hari Libur Mingguan</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <!--prettier-ignore-->
+                                    <a class="" href="/master/hari-libur-akademik/">
+                                        <span class="icon-[ph--calendar-star-bold] size-5"></span>
+                                        <span>Hari Libur Akademik</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <!-- Kesiswaan (conditional) -->
+
+
+
+
+
+
+
+                        <!-- Menu Admin Dinas (Kabkot) -->
+
+
+
+
+                        <!-- Menu Pengawas -->
+
+
+
+
+                        <!-- Menu PTK -->
+
+
+
+
+                        <!-- Menu KKG -->
+
+
+
+
+                        <!-- Menu LPTK -->
+
+
+                    </ul>
+                </div>
+                <p class="mt-6 text-center text-xs text-white">
+                    &copy;2026 Kementerian Agama Republik Indonesia
+                </p>
+
+                <!-- Background Image at Bottom -->
+                <div class="pointer-events-none absolute right-0 bottom-0 left-0 h-auto">
+                    <img class="h-full w-full object-cover object-bottom" src="/static/base/images/app/bg_sidebar.png"
+                        alt="bg_sidebar" />
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="min-h-full flex-1 transition-all duration-300 sm:ms-72">
+            <!-- Page Content -->
+            <main class="@container mx-auto p-4 pt-6">
+
+                <div class="alert alert-warning mb-4 items-start">
+                    <span class="icon-[ph--lock-key-bold] mt-0.5 size-6 shrink-0"></span>
+                    <div>
+                        <p class="font-semibold">Mode lihat saja aktif</p>
+                        <p class="text-sm">
+                            Keaktifan kolektif madrasah sudah diverifikasi. Menu Kurikulum &amp; KBM hanya dapat
+                            dilihat.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="space-y-6">
+                    <!-- Breadcrumbs -->
+                    <div class="bg-base-100 w-full rounded-lg px-4 py-2 shadow">
+                        <div class="breadcrumbs text-sm">
+                            <ul>
+                                <li>
+                                    <a class="text-base-content/60 hover:text-primary" href="/dashboard/">
+                                        <span class="icon-[ph--house-bold] size-4"></span>
+                                        Beranda
+                                    </a>
+                                </li>
+                                <li class="breadcrumbs-separator">/</li>
+                                <li class="text-primary" aria-current="page">Pelajaran</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Alert -->
+                    <!--prettier-ignore-->
+
+
+
+                    <!-- Page Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-base-content text-xl font-semibold">Mata Pelajaran</h2>
+                            <p class="text-base-content/50 text-sm">Daftar mata pelajaran Kurikulum Merdeka</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <!--prettier-ignore-->
+
+                            <a href="/pembelajaran/pelajaran/generate/" class="btn btn-sm btn-secondary">
+                                <span class="icon-[ph--plus-circle-bold] size-4"></span>
+                                Generate Kurikulum Tambahan
+                                <span class="badge badge-sm badge-warning">1</span>
+                            </a>
+                            <!--prettier-ignore-->
+
+                            <button type="button" class="btn btn-sm btn-primary" aria-haspopup="dialog"
+                                aria-expanded="false" aria-controls="modal-regenerate" data-overlay="#modal-regenerate">
+                                <span class="icon-[ph--arrows-clockwise-bold] size-4"></span>
+                                Perbarui Mapel
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal Konfirmasi Regenerate -->
+                    <div id="modal-regenerate"
+                        class="overlay modal overlay-open:opacity-100 overlay-open:duration-300 modal-middle hidden"
+                        role="dialog" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Perbarui Mata Pelajaran</h3>
+                                    <button type="button" class="btn btn-text btn-circle btn-sm absolute end-3 top-3"
+                                        aria-label="Close" data-overlay="#modal-regenerate">
+                                        <span class="icon-[tabler--x] size-4"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Apakah Anda yakin ingin memperbarui mata pelajaran dari template kurikulum
+                                        terbaru?</p>
+                                    <p class="text-base-content/50 mt-2 text-sm">Proses ini hanya menambahkan mapel baru
+                                        tanpa menghapus data yang sudah ada.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-soft btn-secondary"
+                                        data-overlay="#modal-regenerate">Batal</button>
+                                    <form method="post" action="/pembelajaran/pelajaran/regenerate/">
+                                        <input type="hidden" name="csrfmiddlewaretoken"
+                                            value="FwUa4uWZoKkFBxAQiMIjhjpH0XWBbHBl9l9xPrYtKS2f6Ho2FPd7tjsLHrwjVAdL">
+                                        <button type="submit" class="btn btn-primary">
+                                            <span class="icon-[ph--arrows-clockwise-bold] size-4"></span>
+                                            Ya, Perbarui
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Card -->
+                    <div class="card bg-base-100">
+                        <form class="filter-form card-body p-4" method="get">
+                            <h6 class="card-title flex items-center text-sm">
+                                <i class="icon-[ph--funnel-bold] me-2 size-4"></i>
+                                Filter
+                            </h6>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <select class="select select-sm w-40" name="tingkat">
+                                    <option value="">Semua Tingkat</option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="1">
+                                        Kelas 1
+                                    </option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="2">
+                                        Kelas 2
+                                    </option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="3">
+                                        Kelas 3
+                                    </option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="4">
+                                        Kelas 4
+                                    </option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="5">
+                                        Kelas 5
+                                    </option>
+
+                                    <!--prettier-ignore-->
+                                    <option value="6">
+                                        Kelas 6
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="card-actions">
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Table Card -->
+                    <div class="card bg-base-100">
+                        <!-- Table Header -->
+                        <div class="border-base-content/25 border-b px-5">
+                            <!--
+================================================================================
+COMPONENT: table_filter.html (Search & Filter Component)
+================================================================================
+Komponen filter untuk tabel yang berisi:
+- Search input
+- Per page selector
+- Filter status (opsional untuk approval workflow)
+
+PENGGUNAAN:
+
+
+PARAMETERS:
+- search_value: nilai search saat ini dari request.GET.search
+- per_page: nilai per_page saat ini (default: 10)
+- per_page_options: list opsi per_page (default: 10, 25, 50, 100)
+================================================================================
+-->
+                            <form class="table-header-form my-3 flex flex-wrap items-center justify-between gap-3"
+                                method="get">
+                                <!-- Per Page Selector -->
+                                <div class="flex items-center gap-2">
+                                    <span class="text-base-content/60 text-sm">Tampilkan</span>
+                                    <select class="select select-sm w-20" name="per_page"
+                                        onchange="this.form.requestSubmit()">
+                                        <!--prettier-ignore-->
+                                        <option value="10" selected>10</option>
+                                        <!--prettier-ignore-->
+                                        <option value="25">25</option>
+                                        <!--prettier-ignore-->
+                                        <option value="50">50</option>
+                                        <!--prettier-ignore-->
+                                        <option value="100">100</option>
+                                    </select>
+                                    <span class="text-base-content/60 text-sm">data</span>
+                                </div>
+
+                                <!-- Search Input -->
+                                <div class="flex items-center gap-2">
+                                    <input class="input input-sm w-48" name="search" type="text" value=""
+                                        placeholder="Cari disini..." />
+                                    <button class="btn btn-sm btn-soft btn-primary" type="submit">
+                                        <span class="icon-[ph--magnifying-glass-bold] size-4"></span>
+                                        Cari
+                                    </button>
+                                </div>
+                            </form>
+
+                            <script>
+                                // Preserve URL params when submitting table header form
+                                (function () {
+                                    const form = document.querySelector('.table-header-form');
+                                    if (!form) return;
+
+                                    form.addEventListener('submit', function (e) {
+                                        e.preventDefault();
+
+                                        const currentParams = new URLSearchParams(window.location.search);
+                                        const formData = new FormData(form);
+                                        const newParams = new URLSearchParams();
+
+                                        // Add current URL params first (filter params)
+                                        currentParams.forEach(function (value, key) {
+                                            // Skip params that will be set by form (search, per_page, page)
+                                            if (key !== 'search' && key !== 'per_page' && key !== 'page') {
+                                                newParams.set(key, value);
+                                            }
+                                        });
+
+                                        // Add form params (will override if exists)
+                                        formData.forEach(function (value, key) {
+                                            if (value) {
+                                                newParams.set(key, value);
+                                            }
+                                        });
+
+                                        // Reset page to 1 when searching
+                                        newParams.delete('page');
+
+                                        window.location.href = '?' + newParams.toString();
+                                    });
+                                })();
+                            </script>
+
+                        </div>
+
+                        <!-- Table Content -->
+                        <div class="overflow-x-auto">
+                            <table class="table min-w-full">
+                                <caption class="hidden">Daftar Pelajaran</caption>
+                                <thead>
+                                    <tr class="bg-base-200">
+                                        <th class="w-16 font-semibold" scope="col">No</th>
+                                        <th class="font-semibold" scope="col">Kurikulum</th>
+                                        <th class="font-semibold" scope="col">Tingkat</th>
+                                        <th class="font-semibold" scope="col">Kode</th>
+                                        <th class="font-semibold" scope="col">Peminatan</th>
+                                        <th class="font-semibold" scope="col">Nama Pelajaran</th>
+                                        <th class="font-semibold" scope="col">Singkatan</th>
+                                        <th class="font-semibold" scope="col">Maksimal Jam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1001</td>
+                                        <td>Umum</td>
+                                        <td>Pendidikan Agama dan Budi Pekerti</td>
+                                        <td>-</td>
+                                        <td>6 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Akidah Akhlaq</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Alqur&#x27;an Hadis</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Alqur&#x27;an Hadis</td>
+                                        <td>-</td>
+                                        <td>5 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Aqidah/Tauhid</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Bahasa Arab</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Bahasa Arab</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Bahasa Indonesia</td>
+                                        <td>-</td>
+                                        <td>12 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Bahasa Inggris</td>
+                                        <td>-</td>
+                                        <td>6 jam/minggu</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Kurikulum Merdeka</td>
+                                        <td>Kelas 1</td>
+                                        <td>1011</td>
+                                        <td>Umum</td>
+                                        <td>Bahasa Jepang</td>
+                                        <td>-</td>
+                                        <td>8 jam/minggu</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Table Footer -->
+                        <div class="border-base-content/25 border-t px-5">
+
+                            <!--
+================================================================================
+COMPONENT: footer.html (Table Footer with Pagination)
+================================================================================
+Komponen pagination untuk navigasi halaman tabel.
+
+PENGGUNAAN:
+
+
+PARAMETERS:
+- pagination: Django Page object dari Paginator
+- disable_last_page (optional, default False): jika True, tombol "Last" dan
+  link page number ke `num_pages` di-hide. Berguna untuk halaman yang
+  ingin mencegah deep paging (mis. audit trail di tabel jutaan row).
+
+CATATAN:
+- Komponen ini mempertahankan semua query parameter saat navigasi halaman via JS
+- Menggunakan FlyonUI pagination style
+- Juga menangani auto-submit untuk filter form (.filter-form) dengan preserve search params
+================================================================================
+-->
+                            <div class="my-3 flex flex-col items-center justify-between gap-4 md:flex-row">
+                                <p class="text-base-content/60 text-sm">
+                                    <!--prettier-ignore-->
+                                    Menampilkan 1-10 dari 484 data
+                                </p>
+                                <nav class="pagination-nav flex items-center gap-x-1">
+                                    <!-- First & Previous Buttons -->
+
+                                    <button class="btn btn-sm btn-text btn-circle" type="button" title="First" disabled>
+                                        <span class="icon-[ph--caret-double-left-bold] size-4"></span>
+                                    </button>
+                                    <button class="btn btn-sm btn-text btn-circle" type="button" title="Previous"
+                                        disabled>
+                                        <span class="icon-[ph--caret-left-bold] size-4"></span>
+                                    </button>
+
+
+                                    <!-- Page Numbers -->
+                                    <div class="flex items-center gap-x-1">
+
+
+                                        <!--prettier-ignore-->
+
+                                        <span class="btn btn-sm btn-soft min-w-8 bg-primary text-primary-content"
+                                            aria-current="page">
+                                            1
+                                        </span>
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+                                        <a class="btn btn-sm bg-base-200 text-base-content btn-soft min-w-8"
+                                            href="?page=2">
+                                            2
+                                        </a>
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+                                        <a class="btn btn-sm bg-base-200 text-base-content btn-soft min-w-8"
+                                            href="?page=3">
+                                            3
+                                        </a>
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+                                        <span
+                                            class="btn btn-sm bg-base-200 text-base-content btn-soft min-w-8 pointer-events-none">
+                                            ...
+                                        </span>
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+                                        <a class="btn btn-sm bg-base-200 text-base-content btn-soft min-w-8"
+                                            href="?page=49">
+                                            49
+                                        </a>
+
+                                        <!--prettier-ignore-->
+
+
+                                        <!--prettier-ignore-->
+
+                                    </div>
+
+                                    <!-- Next & Last Buttons -->
+
+                                    <a class="btn btn-sm btn-text btn-circle" href="?page=2" title="Next">
+                                        <span class="icon-[ph--caret-right-bold] size-4"></span>
+                                    </a>
+
+                                    <a class="btn btn-sm btn-text btn-circle" href="?page=49" title="Last">
+                                        <span class="icon-[ph--caret-double-right-bold] size-4"></span>
+                                    </a>
+
+
+                                </nav>
+                            </div>
+
+                            <script>
+                                (function () {
+                                    const currentParams = new URLSearchParams(window.location.search);
+
+                                    // 1. Preserve all URL params when clicking pagination links
+                                    const nav = document.querySelector('.pagination-nav');
+                                    if (nav) {
+                                        nav.querySelectorAll('a[href*="page="]').forEach(function (link) {
+                                            const linkUrl = new URL(link.href, window.location.origin);
+                                            const pageValue = new URLSearchParams(linkUrl.search).get('page');
+                                            if (!pageValue) return;
+
+                                            const newParams = new URLSearchParams(currentParams);
+                                            newParams.set('page', pageValue);
+                                            link.href = '?' + newParams.toString();
+                                        });
+                                    }
+
+                                    // 2. Handle filter form - auto submit with preserved search params
+                                    const filterForm = document.querySelector('.filter-form');
+                                    if (filterForm) {
+                                        filterForm.querySelectorAll('select').forEach(function (select) {
+                                            select.addEventListener('change', function () {
+                                                const formData = new FormData(filterForm);
+                                                const newParams = new URLSearchParams();
+
+                                                // Preserve search params (search, per_page)
+                                                if (currentParams.get('search')) {
+                                                    newParams.set('search', currentParams.get('search'));
+                                                }
+                                                if (currentParams.get('per_page')) {
+                                                    newParams.set('per_page', currentParams.get('per_page'));
+                                                }
+
+                                                // Add filter params from form
+                                                formData.forEach(function (value, key) {
+                                                    if (value) newParams.set(key, value);
+                                                });
+
+                                                window.location.href = '?' + newParams.toString();
+                                            });
+                                        });
+                                    }
+                                })();
+                            </script>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <footer
+      class="bg-primary sticky inset-s-0 -bottom-px w-full overflow-hidden"
+    >
+      <div
+        class="marquee-track flex w-max py-1.5 text-sm text-white whitespace-nowrap"
+      >
+        <span class="px-8 sm:px-16">
+          <span
+            class="icon-[ph--megaphone-bold] mr-1 size-3.5 align-middle"
+          ></span>
+          Pengumuman: -
+        </span>
+      </div>
+    </footer>
+
+    <style>
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .marquee-track {
+        animation: marquee 30s linear infinite;
+      }
+
+      @media (max-width: 640px) {
+        .marquee-track {
+          animation-duration: 15s;
+        }
+      }
+    </style>
+
+    <script src="/static/base/js/htmx.min.js"></script>
+    <!-- FlyonUI -->
+    <script src="/static/base/js/flyonui.js"></script>
+    <!-- Clipboard.js (copy-to-clipboard untuk tombol [data-clipboard-text]) -->
+    <script src="/static/base/js/clipboard.min.js"></script>
+    <!-- Form Loading (prevent double submission) -->
+    <script src="/static/base/js/form-loading.js?v=5"></script>
+
+    <script>
+      document.addEventListener("htmx:configRequest", function (evt) {
+        evt.detail.headers["X-CSRFToken"] =
+          "FwUa4uWZoKkFBxAQiMIjhjpH0XWBbHBl9l9xPrYtKS2f6Ho2FPd7tjsLHrwjVAdL";
+      });
+
+      document.addEventListener("htmx:configResponse", function (evt) {
+        if (evt.detail.xhr.status === 403) {
+          alert("Session expired. Please log in again.");
+          window.location.href = "/login";
+        }
+      });
+
+      // Auto-scroll sidebar to active menu
+      (function () {
+        var active = document.querySelector("#main-sidebar .menu-active");
+        if (active) {
+          active.scrollIntoView({ block: "center", behavior: "instant" });
+        }
+      })();
+
+      // Alert Impersonate
+      (function () {
+        var nav = document.querySelector(".navbar");
+        if (nav)
+          document.documentElement.style.setProperty(
+            "--navbar-h",
+            nav.offsetHeight + "px",
+          );
+      })();
+
+      // Kurikulum & KBM view-only state after keaktifan kolektif is verified.
+      (function () {
+        var lockMessage =
+          "Keaktifan kolektif madrasah sudah diverifikasi. Menu Kurikulum \u0026 KBM hanya dapat dilihat.";
+        var actionKeywords = [
+          "/tambah/",
+          "/edit/",
+          "/update/",
+          "/hapus/",
+          "/import/",
+          "/proses/",
+          "/generate/",
+          "/regenerate/",
+          "/tarik-emis/",
+          "/sync-emis/",
+          "/assign-rombel/",
+          "/unassign-rombel/",
+          "/kelola-kurikulum/",
+        ];
+        var actionButtonWords = [
+          "tambah",
+          "simpan",
+          "hapus",
+          "delete",
+          "import",
+          "sinkron",
+          "sync",
+          "generate",
+          "regenerate",
+          "tarik",
+          "assign",
+          "unassign",
+        ];
+
+        function markDisabled(element) {
+          element.classList.add(
+            "btn-disabled",
+            "opacity-50",
+            "cursor-not-allowed",
+          );
+          element.setAttribute("aria-disabled", "true");
+          element.setAttribute("title", lockMessage);
+        }
+
+        function blockClick(element) {
+          element.addEventListener(
+            "click",
+            function (event) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+              alert(lockMessage);
+            },
+            true,
+          );
+        }
+
+        document.querySelectorAll("form").forEach(function (form) {
+          var method = (form.getAttribute("method") || "get").toLowerCase();
+          if (method !== "post") return;
+
+          form.classList.add("opacity-75");
+          form.setAttribute("title", lockMessage);
+          form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert(lockMessage);
+          });
+
+          form
+            .querySelectorAll(
+              'input:not([type="hidden"]):not([type="button"]), select, textarea',
+            )
+            .forEach(function (field) {
+              field.disabled = true;
+              field.classList.add("cursor-not-allowed", "opacity-70");
+              field.setAttribute("title", lockMessage);
+            });
+
+          form
+            .querySelectorAll(
+              'button, input[type="submit"], input[type="button"]',
+            )
+            .forEach(function (button) {
+              blockClick(button);
+              button.classList.add("cursor-not-allowed", "opacity-60");
+              button.setAttribute("title", lockMessage);
+            });
+        });
+
+        document.querySelectorAll("a[href]").forEach(function (link) {
+          var href = link.getAttribute("href") || "";
+          if (!href.includes("/pembelajaran/")) return;
+
+          var isActionLink = actionKeywords.some(function (keyword) {
+            return href.includes(keyword);
+          });
+          if (!isActionLink) return;
+
+          blockClick(link);
+          markDisabled(link);
+        });
+
+        document
+          .querySelectorAll("[hx-post], [hx-put], [hx-patch], [hx-delete]")
+          .forEach(function (element) {
+            blockClick(element);
+            markDisabled(element);
+          });
+
+        document
+          .querySelectorAll('button, [role="button"]')
+          .forEach(function (button) {
+            if (button.closest('form[method="post"], form[method="POST"]'))
+              return;
+
+            var signature = [
+              button.id || "",
+              button.className || "",
+              button.getAttribute("aria-label") || "",
+              button.textContent || "",
+            ]
+              .join(" ")
+              .toLowerCase();
+
+            var isActionButton = actionButtonWords.some(function (word) {
+              return signature.includes(word);
+            });
+            if (!isActionButton) return;
+
+            blockClick(button);
+            markDisabled(button);
+          });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "EMIS GTK - Ambil Kurikulum",
+    "version": "1.3.0",
+    "description": "Mengambil seluruh data mata pelajaran / kurikulum dari halaman EMIS GTK secara otomatis dan mengekspor ke Excel/JSON.",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "downloads",
+        "sidePanel"
+    ],
+    "host_permissions": [
+        "https://emisgtk.kemenag.go.id/*",
+        "http://emisgtk.kemenag.go.id/*"
+    ],
+    "action": {
+        "default_title": "EMIS GTK - Ambil Kurikulum",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "side_panel": {
+        "default_path": "sidepanel.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://emisgtk.kemenag.go.id/*",
+                "http://emisgtk.kemenag.go.id/*"
+            ],
+            "js": ["content.js"],
+            "run_at": "document_idle"
+        }
+    ],
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["xlsx.full.min.js"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}

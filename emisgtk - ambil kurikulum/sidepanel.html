@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EMIS GTK - Ambil Kurikulum</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header class="app-header">
+    <div class="header-brand">
+        <span class="header-icon">📚</span>
+        <div>
+            <h1>EMIS GTK</h1>
+            <p class="subtitle">Ambil Data Mata Pelajaran</p>
+        </div>
+    </div>
+    <button id="btn-refresh" class="btn-icon" title="Periksa ulang halaman">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M8 16H3v5"/>
+        </svg>
+    </button>
+</header>
+
+<!-- ── Body ────────────────────────────────────────────────────────────────── -->
+<main class="app-body">
+
+    <!-- Status -->
+    <div id="page-status" class="status-card status-checking">
+        <span id="status-icon" class="status-dot"></span>
+        <span id="status-text">Memeriksa halaman...</span>
+    </div>
+
+    <!-- ── Info Panel ─────────────────────────────────────────────────────── -->
+    <section id="info-panel" class="panel hidden">
+        <div class="panel-header">Informasi Halaman</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Total Data</span>
+                <span id="info-total" class="info-value chip chip-teal">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Halaman Aktif</span>
+                <span id="info-page" class="info-value">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Total Halaman</span>
+                <span id="info-total-pages" class="info-value">-</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Tombol Aksi ─────────────────────────────────────────────────────── -->
+    <section id="action-panel" class="panel hidden">
+        <button id="btn-scrape-all" class="btn btn-primary btn-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+            </svg>
+            Ambil Semua Data
+        </button>
+        <button id="btn-scrape-current" class="btn btn-outline btn-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+            </svg>
+            Halaman Ini Saja
+        </button>
+    </section>
+
+    <!-- ── Progress ───────────────────────────────────────────────────────── -->
+    <section id="progress-panel" class="panel hidden">
+        <div class="panel-header">
+            <span id="progress-label">Mengambil data...</span>
+            <span id="progress-count" class="chip chip-teal">0 baris</span>
+        </div>
+        <div class="progress-track">
+            <div id="progress-fill" class="progress-fill" style="width:4%"></div>
+        </div>
+        <div class="progress-meta">
+            <span id="progress-pages">Halaman 0 / 0</span>
+            <span id="progress-pct">0%</span>
+        </div>
+    </section>
+
+    <!-- ── Filter Mapel ───────────────────────────────────────────────────── -->
+    <section id="filter-panel" class="panel hidden">
+        <div class="panel-header">
+            <span>Filter Mata Pelajaran</span>
+            <span id="filter-selected-count" class="chip chip-teal">0 dipilih</span>
+        </div>
+
+        <!-- Search box -->
+        <div class="filter-search-wrap">
+            <svg class="filter-search-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input id="filter-search" type="text" class="filter-search-input"
+                   placeholder="Cari kode atau nama mapel..." autocomplete="off" />
+            <button id="filter-search-clear" class="filter-search-clear hidden" title="Hapus pencarian">✕</button>
+        </div>
+
+        <!-- Toolbar: select all / deselect all -->
+        <div class="filter-toolbar">
+            <button id="btn-filter-all" class="btn-link">Pilih Semua</button>
+            <span class="filter-divider">|</span>
+            <button id="btn-filter-none" class="btn-link">Hapus Pilihan</button>
+            <span id="filter-match-info" class="filter-match-info"></span>
+        </div>
+
+        <!-- Daftar checkbox -->
+        <div id="filter-list" class="filter-list"></div>
+    </section>
+
+    <!-- ── Preview Tabel ──────────────────────────────────────────────────── -->
+    <section id="preview-panel" class="panel hidden">
+        <div class="panel-header">
+            <span>Preview Data Terpilih</span>
+            <span id="preview-count" class="chip chip-slate">0 baris</span>
+        </div>
+        <div class="table-wrap">
+            <table id="preview-table">
+                <thead id="preview-thead"></thead>
+                <tbody id="preview-tbody"></tbody>
+            </table>
+        </div>
+        <p class="table-note">* Menampilkan maks. 10 baris pertama dari data terpilih</p>
+    </section>
+
+    <!-- ── Hasil ──────────────────────────────────────────────────────────── -->
+    <section id="result-panel" class="panel result-panel hidden">
+        <div class="result-hero">
+            <span class="result-icon">✅</span>
+            <div>
+                <p class="result-title">Selesai!</p>
+                <p class="result-sub">
+                    <strong id="result-count">0</strong> data berhasil dikumpulkan
+                </p>
+            </div>
+        </div>
+        <div class="export-grid">
+            <button id="btn-download-xlsx" class="btn btn-export btn-green">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2.5"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Unduh Excel
+            </button>
+            <button id="btn-download-json" class="btn btn-export btn-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2.5"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Unduh JSON
+            </button>
+        </div>
+        <button id="btn-copy-tsv" class="btn btn-ghost btn-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Salin sebagai TSV
+        </button>
+        <button id="btn-scrape-again" class="btn btn-ghost btn-block" style="margin-top:4px">
+            ↩ Ambil Ulang
+        </button>
+    </section>
+
+    <!-- ── Error ──────────────────────────────────────────────────────────── -->
+    <section id="error-panel" class="panel error-panel hidden">
+        <span class="error-icon">⚠️</span>
+        <p id="error-text" class="error-text">Terjadi kesalahan.</p>
+        <button id="btn-retry" class="btn btn-outline btn-block" style="margin-top:10px">
+            🔄 Coba Lagi
+        </button>
+    </section>
+
+</main>
+
+<!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+<footer class="app-footer">
+    EMIS GTK Kurikulum Scraper v1.3
+</footer>
+
+<script src="xlsx.full.min.js"></script>
+<script src="sidepanel.js"></script>
+</body>
+</html>

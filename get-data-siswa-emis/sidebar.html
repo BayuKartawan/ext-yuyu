@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMIS Data Siswa Recorder</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="sidebar-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-icon">⚡</div>
+      <div class="header-title">
+        <h1>EMIS Auto-Record</h1>
+        <p class="subtitle">Buka Detail Siswa & Data Otomatis Terekam</p>
+      </div>
+    </header>
+
+    <!-- Connection & Recording Status -->
+    <div class="status-card">
+      <div class="status-row">
+        <span class="status-label">Status Koneksi</span>
+        <div id="connectionStatus" class="connection-status checking">
+          <span class="status-dot"></span>
+          <span class="status-text">Memeriksa...</span>
+        </div>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Mode Auto-Record</span>
+        <div class="badge-recording">
+          <span class="pulse-icon"></span>
+          <span>AKTIF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Info Banner -->
+    <div class="info-box">
+      <span class="info-icon">💡</span>
+      <p>Buka halaman detail 1 per 1 di EMIS. Data akan otomatis terekam tanpa perlu mengklik tombol apapun!</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <button id="btnManualRecord" class="btn btn-primary" title="Rekam data dari halaman detail yang sedang dibuka">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <span>Rekam Halaman Ini</span>
+      </button>
+
+      <div class="button-group">
+        <button id="btnExport" class="btn btn-success" disabled>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Ekspor Data</span>
+        </button>
+
+        <button id="btnClear" class="btn btn-outline-danger" title="Hapus semua data terekam">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Export Options -->
+    <div class="export-options">
+      <label for="selectFormat" class="export-label">Format Ekspor:</label>
+      <select id="selectFormat" class="export-select">
+        <option value="xlsx">Excel Workbook (.xlsx / HTML)</option>
+        <option value="csv">CSV (Excel Compatible)</option>
+        <option value="json">JSON (Raw Data)</option>
+      </select>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="totalSiswa">0</div>
+        <div class="stat-label">Siswa Terekam</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value small-text" id="lastStudentName">-</div>
+        <div class="stat-label">Terakhir Ditambahkan</div>
+      </div>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Cari nama, NIK, NISN, rombel..." />
+    </div>
+
+    <!-- Data List Section -->
+    <section class="data-section">
+      <div class="section-header">
+        <h2>Daftar Siswa Terekam (<span id="dataCount">0</span>)</h2>
+      </div>
+
+      <div id="studentList" class="student-list">
+        <div class="empty-state">
+          <div class="empty-icon">📂</div>
+          <p>Belum ada data siswa yang terekam.</p>
+          <span class="empty-hint">Buka detail siswa di EMIS atau klik "Rekam Halaman Ini".</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity Log -->
+    <section class="log-section">
+      <div class="log-header">
+        <h3>Log Aktivitas</h3>
+        <button id="btnClearLog" class="btn-text">Bersihkan</button>
+      </div>
+      <div id="logContainer" class="log-container">
+        <div class="log-entry log-info">[System] Ekstensi Siap. Silakan buka halaman detail siswa.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Adobe Stock Rejected Filename Downloader",
+  "version": "1.0.0",
+  "description": "Ambil dan unduh daftar nama file aset yang ditolak (Not Accepted / Rejected) dari Adobe Stock Contributor secara otomatis.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://contributor.stock.adobe.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Adobe Stock Rejected Filename Downloader",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://contributor.stock.adobe.com/*"
+      ],
+      "js": [
+        "content/pageWorld.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://contributor.stock.adobe.com/*"
+      ],
+      "css": [
+        "content/content.css"
+      ],
+      "js": [
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*",
+        "content/*"
+      ],
+      "matches": [
+        "*://contributor.stock.adobe.com/*"
+      ]
+    }
+  ]
+}

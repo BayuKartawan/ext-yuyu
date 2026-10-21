@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EMIS GTK - Ambil Kurikulum</title>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="header-icon">📚</div>
+        <div>
+            <h1>EMIS GTK</h1>
+            <p class="subtitle">Ambil Data Mata Pelajaran</p>
+        </div>
+    </div>
+
+    <!-- Status Halaman -->
+    <div id="page-status" class="status-card status-checking">
+        <span class="status-icon">⏳</span>
+        <span id="status-text">Memeriksa halaman...</span>
+    </div>
+
+    <!-- Info Pagination -->
+    <div id="info-panel" class="info-panel hidden">
+        <div class="info-row">
+            <span class="info-label">Total Data</span>
+            <span id="info-total" class="info-value">-</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Halaman Saat Ini</span>
+            <span id="info-page" class="info-value">-</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Total Halaman</span>
+            <span id="info-total-pages" class="info-value">-</span>
+        </div>
+    </div>
+
+    <!-- Preview Data -->
+    <div id="preview-panel" class="preview-panel hidden">
+        <div class="preview-header">
+            <span>📋 Preview Halaman Ini</span>
+            <span id="preview-count" class="badge">0 baris</span>
+        </div>
+        <div class="preview-scroll">
+            <table id="preview-table">
+                <thead id="preview-thead"></thead>
+                <tbody id="preview-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-panel" class="progress-panel hidden">
+        <div class="progress-info">
+            <span id="progress-text">Mengambil data...</span>
+            <span id="progress-count" class="badge">0 baris</span>
+        </div>
+        <div class="progress-bar-wrap">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <p id="progress-detail" class="progress-detail">Halaman 0 diproses...</p>
+    </div>
+
+    <!-- Hasil Download -->
+    <div id="result-panel" class="result-panel hidden">
+        <div class="result-icon">✅</div>
+        <p id="result-text">Berhasil mengambil <strong id="result-count">0</strong> data</p>
+        <div class="result-actions">
+            <button id="btn-download-csv" class="btn btn-green">
+                ⬇️ Unduh CSV
+            </button>
+            <button id="btn-download-json" class="btn btn-blue">
+                ⬇️ Unduh JSON
+            </button>
+        </div>
+        <button id="btn-copy-csv" class="btn btn-gray btn-full mt-2">
+            📋 Salin ke Clipboard (CSV)
+        </button>
+    </div>
+
+    <!-- Tombol Aksi Utama -->
+    <div id="action-panel" class="action-panel hidden">
+        <button id="btn-scrape-all" class="btn btn-primary btn-full">
+            🚀 Ambil Semua Data (Semua Halaman)
+        </button>
+        <button id="btn-scrape-current" class="btn btn-secondary btn-full mt-2">
+            📄 Ambil Data Halaman Ini Saja
+        </button>
+    </div>
+
+    <!-- Error -->
+    <div id="error-panel" class="error-panel hidden">
+        <span class="error-icon">❌</span>
+        <p id="error-text">Terjadi kesalahan.</p>
+        <button id="btn-retry" class="btn btn-gray btn-full mt-2">🔄 Coba Lagi</button>
+    </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

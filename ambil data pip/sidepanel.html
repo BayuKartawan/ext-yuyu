@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIP Data Extractor</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1a56db;
+      --green:   #0e9f6e;
+      --red:     #e53e3e;
+      --orange:  #d97706;
+      --gray:    #718096;
+      --bg:      #f7fafc;
+      --surface: #ffffff;
+      --border:  #e2e8f0;
+      --text:    #2d3748;
+      --muted:   #a0aec0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ── Layout ─────────────────────────────────────── */
+    .layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Header ─────────────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: #fff;
+      padding: 12px 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-icon { font-size: 26px; }
+    .header h1 { font-size: 14px; font-weight: 700; }
+    .header p  { font-size: 11px; opacity: .8; margin-top: 1px; }
+
+    /* ── Controls ────────────────────────────────────── */
+    .controls {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      flex-shrink: 0;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 11px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: opacity .15s, transform .1s;
+      white-space: nowrap;
+    }
+    .btn:hover:not(:disabled) { opacity: .85; transform: translateY(-1px); }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: .38; cursor: not-allowed; }
+
+    .btn-start  { background: var(--green);  color: #fff; }
+    .btn-stop   { background: var(--red);    color: #fff; }
+    .btn-export { background: var(--blue);   color: #fff; }
+    .btn-copy   { background: #6d28d9;       color: #fff; }
+    .btn-clear  { background: var(--gray);   color: #fff; }
+    .btn-debug  { background: var(--orange); color: #fff; }
+
+    /* ── Status bar ──────────────────────────────────── */
+    .status-bar {
+      background: #edf2f7;
+      border-bottom: 1px solid var(--border);
+      padding: 7px 12px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    .status-left { display: flex; align-items: center; gap: 6px; }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+    .dot.active  { background: var(--green); animation: blink 1.4s infinite; }
+    .dot.stopped { background: var(--red); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+    .badge {
+      background: var(--blue);
+      color: #fff;
+      padding: 1px 8px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ── Info box ────────────────────────────────────── */
+    .info-box {
+      margin: 8px 12px 0;
+      padding: 7px 10px;
+      background: #ebf8ff;
+      border-left: 3px solid var(--blue);
+      border-radius: 4px;
+      font-size: 11px;
+      color: #2b6cb0;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    .info-box.success { background:#f0fff4; border-color:var(--green); color:#276749; }
+    .info-box.warning { background:#fffbeb; border-color:var(--orange); color:#92400e; }
+    .info-box.error   { background:#fff5f5; border-color:var(--red);    color:#9b2c2c; }
+
+    /* ── Tab nav ─────────────────────────────────────── */
+    .tab-nav {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      padding: 0 12px;
+      display: flex;
+      gap: 0;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .tab-btn {
+      padding: 8px 12px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color .15s;
+    }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* ── Tab content ─────────────────────────────────── */
+    .tab-content { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+    .tab-content.active { display: flex; }
+
+    /* ── Data table ──────────────────────────────────── */
+    .table-scroll {
+      flex: 1;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      min-width: 480px;
+    }
+
+    thead tr {
+      background: #2d3748;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    thead th {
+      padding: 8px 8px;
+      text-align: left;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) { background: #f7fafc; }
+    tbody tr:hover { background: #ebf4ff; }
+    tbody td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .col-no   { width: 36px; text-align: center; }
+    .col-nama { min-width: 160px; max-width: 200px; }
+    .col-d    { width: 72px; text-align: center; }
+
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      gap: 8px;
+      padding: 20px;
+    }
+    .empty-state .big-icon { font-size: 40px; }
+    .empty-state p { font-size: 12px; text-align: center; line-height: 1.5; }
+
+    /* ── Debug panel ─────────────────────────────────── */
+    .debug-scroll {
+      flex: 1;
+      overflow: auto;
+      padding: 10px 12px;
+    }
+    .debug-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .debug-header {
+      background: #edf2f7;
+      padding: 6px 10px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .debug-url {
+      color: var(--blue);
+      font-size: 10px;
+      word-break: break-all;
+      flex: 1;
+    }
+    .debug-time { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .debug-body {
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .field-chip {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #4a5568;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin: 1px 2px;
+      font-family: monospace;
+      font-size: 10px;
+    }
+    .field-chip.hit {
+      background: #c6f6d5;
+      color: #276749;
+    }
+    .debug-sample {
+      margin-top: 6px;
+      background: #f7fafc;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-family: monospace;
+      font-size: 10px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 120px;
+      overflow: auto;
+      color: #4a5568;
+    }
+
+    /* ── Preview Pesan ──────────────────────────────────── */
+    .preview-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 10px 12px;
+      gap: 8px;
+    }
+
+    .preview-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .preview-toolbar label {
+      font-size: 11px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .preview-toolbar select {
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 11px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .preview-toolbar .sep {
+      flex: 1;
+    }
+
+    .copy-status {
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .copy-status.show { opacity: 1; }
+
+    .preview-box {
+      flex: 1;
+      overflow: auto;
+      background: #1e1e2e;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #cdd6f4;
+      white-space: pre-wrap;
+      word-break: break-word;
+      border: 1px solid #313244;
+    }
+
+    .preview-box .line-header {
+      color: #89b4fa;
+      font-weight: bold;
+    }
+    .preview-box .line-sub {
+      color: #a6e3a1;
+    }
+    .preview-box .line-divider {
+      color: #45475a;
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-copy-all  { background: #6d28d9; color: #fff; flex: 1; justify-content: center; }
+    .btn-copy-all:hover:not(:disabled) { background: #5b21b6; }
+
+    /* ── Footer ──────────────────────────────────────── */
+    .footer {
+      padding: 6px 12px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🎓</div>
+    <div>
+      <h1>PIP Data Extractor</h1>
+      <p>Ambil data siswa PIP dari response API</p>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn btn-start"  id="btnStart">▶ Mulai</button>
+    <button class="btn btn-stop"   id="btnStop"   disabled>⏹ Stop</button>
+    <button class="btn btn-export" id="btnExport" disabled>⬇ CSV</button>
+    <button class="btn btn-copy"   id="btnCopy"   disabled>📋 Copy</button>
+    <button class="btn btn-clear"  id="btnClear">🗑 Hapus</button>
+    <button class="btn btn-debug"  id="btnDebug">🔍 Debug</button>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <div class="status-left">
+      <div class="dot" id="statusDot"></div>
+      <span id="statusText">Siap</span>
+    </div>
+    <div>Total: <span class="badge" id="totalBadge">0</span></div>
+  </div>
+
+  <!-- Info box -->
+  <div class="info-box" id="infoBox">
+    Klik <strong>▶ Mulai</strong>, lalu navigasi halaman PIP.
+    Data tertangkap otomatis dari API.
+  </div>
+
+  <!-- Tab nav -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="data">📋 Data</button>
+    <button class="tab-btn" data-tab="pesan">📱 Preview Pesan</button>
+    <button class="tab-btn" data-tab="debug">🔍 Debug API</button>
+  </div>
+
+  <!-- Tab: Data -->
+  <div class="tab-content active" id="tabData">
+    <div class="empty-state" id="emptyState">
+      <div class="big-icon">📭</div>
+      <p>Belum ada data.<br>Klik <strong>▶ Mulai</strong> lalu buka halaman PIP.</p>
+    </div>
+    <div class="table-scroll" id="tableScroll" style="display:none;">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th class="col-no">No</th>
+            <th class="col-nama">Nama Siswa</th>
+            <th class="col-d">Desil Kab/Kota</th>
+            <th class="col-d">Desil Prov</th>
+            <th class="col-d">Desil Nasional</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab: Preview Pesan -->
+  <div class="tab-content" id="tabPesan">
+    <div class="preview-wrap">
+      <div class="preview-toolbar">
+        <label>Format:</label>
+        <select id="selFormat">
+          <option value="whatsapp">WhatsApp / Telegram</option>
+          <option value="plain">Teks Biasa</option>
+          <option value="numbered">Bernomor Rapi</option>
+        </select>
+        <label style="margin-left:6px;">Tampilkan:</label>
+        <select id="selRange">
+          <option value="all">Semua data</option>
+          <option value="10">10 pertama</option>
+          <option value="25">25 pertama</option>
+          <option value="50">50 pertama</option>
+        </select>
+        <div class="sep"></div>
+        <span class="copy-status" id="copyStatus">✅ Tersalin!</span>
+      </div>
+
+      <div class="preview-box" id="previewBox">
+        <span style="color:#45475a;">— Belum ada data untuk dipreview —</span>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn btn-copy-all" id="btnCopyAll" disabled>📋 Copy Semua ke Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Debug -->
+  <div class="tab-content" id="tabDebug">
+    <div class="debug-scroll" id="debugScroll">
+      <div class="empty-state">
+        <div class="big-icon">🔍</div>
+        <p>Belum ada API request tertangkap.<br>
+           Tab ini menampilkan semua field JSON dari API<br>
+           agar Anda bisa verifikasi nama field yang benar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">PIP Extractor v1.2 — Data hanya tersimpan selama sesi aktif</div>
+</div>
+
+<script src="sidepanel.js"></script>
+</body>
+</html>
